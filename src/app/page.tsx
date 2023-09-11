@@ -1,17 +1,20 @@
 import React from "react";
 
 import prisma from "@lib/prisma";
+import Link from "next/link";
 
 const Home = async () => {
   const posts = await prisma.post.findMany();
   return (
-    <main className="min-h-screen container">
+    <main className="min-h-screen container mt-5">
       <h1>Hello</h1>
-      <ul>
+      <div>
         {posts?.map((_p, index) => (
-          <li key={index}>{_p.title}</li>
+          <Link href={`/post/${_p.id}`} key={index}>
+            {_p.title}
+          </Link>
         ))}
-      </ul>
+      </div>
     </main>
   );
 };
